@@ -1,0 +1,307 @@
+%\documentclass[journal=jacsat]{achemso}
+
+\documentclass[aps,prb,twocolumn,amsmath,amssymb,superscriptaddress,longbibliography]{revtex4-1}
+
+%\documentclass[preprint,showpacs,preprintnumbers,amsmath,amssymb]{revtex4-1}
+%\documentclass[twocolumn,showpacs,preprintnumbers,amsmath,amssymb]{revtex4}
+% Some other (several out of many) possibilities
+%\documentclass[preprint,aps]{revtex4}
+%\documentclass[preprint,aps,draft]{revtex4}
+%\documentclass[prb,amsmath,amssymb]{revtex4}% Physical Review B
+
+\usepackage{graphicx}% Include figure files
+\usepackage{epstopdf} %convert graphics
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{amsmath}% bold math
+\usepackage{color}
+%\usepackage[normalem]{ulem}
+%\nofiles
+
+%shortcuts for sets of numbers
+\newcommand{\Ns}{\mathbb{N}^{*}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zs}{\mathbb{Z}^{*}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rs}{\mathbb{R}^{*}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Cs}{\mathbb{C}^{*}}
+
+\newcommand{\angstrom}{\text{\normalfont\AA}}
+
+%\bibliographystyle{achemso}
+\bibliographystyle{naturemag}
+
+
+
+
+
+\begin{document}
+
+\title{
+Using absolutely localized molecular orbitals for deeper physical insight into the nature of chemical bonding and linear-scaling calculations for condensed phase [binary] materials 
+}
+
+\author{Nicolas Gastellu}
+\author{Yifei Shi}
+\author{Rustam Z. Khaliullin}
+\email{rustam.khaliullin@mcgill.ca}
+\affiliation{Department of Chemistry, McGill University, 801 Sherbrooke St. West, Montreal, QC H3A 0B8, Canada}
+
+\date{\today}
+
+\begin{abstract}
+Absolutely localized nonorthogonal molecular orbitals are promising for developing low-cost linear scaling reformulation of Kohn-Sham density functional theory. $\ldots$
+%In a recent development, we resolved one of the key issues of has been resolved that lead to the development of a series of efficient DFT methods for weakly-interacting molecular systems. Here, we tested the new method on more challenging strongly interacting systems to understand limits of its applicability. 
+\end{abstract}
+
+\maketitle
+ 
+\section{Outline of research}
+
+Accuracy-speed tests for the following candidate systems with varying importance of charge-delocalization effects. Unless stated otherwise the systems are static (no molecular dynamics).
+
+\begin{itemize}
+\item Alkali halides
+\item Magnesium hydride
+\item Cadmium selenide
+\item Titanium dioxide
+\item Metal: Magnesium
+\item Silicon
+\item Boron nitride or analogous system
+\item Graphene
+\item Solvated protons (sampling)
+\item Peptide bonds
+\item Ionic liquids
+\end{itemize}
+
+\section{Introduction} 
+
+[Nothing here yet]
+
+
+
+\section*{Results and discussion}
+ 
+All simulations used the Kohn-Sham density functional theory (KS DFT) at the GGA level of theory. The calculations were run using the CP2K/QUICKSTEP package\cite{cp2k}, which implements the hybrid Gaussian and planewaves scheme\cite{gpw}. The core electrons and nuclei were modelled using the norm-conserving GTH pseudopotentials\cite{gth1,gth2}, while valence electronic wavefunctions were expressed in a $\text{double-}\zeta$  Gaussian basis \cite{gaussian} with a set of polarization functions taken from the Dunning basis (cc-pVXZ)\cite{pol,qs}.The PBE exchange-correlation (XC) functional\cite{pbe} was used for calculations on all alkali-halide salts and $\text{MgH}_{2}$. The hybrid BLYP XC functional\cite{becke,lyp} was used for $\text{TiO}_{2}$ and BN. All simulations were run with periodic boundary conditions.\\
+
+Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, atoms) were charged according to their electronegativity and in a way that ensures the unit cell remains neutral. For example, two electrons were removed from each titanium atom and placed an oxygen atom each in $\text{TiO}_{2}$; the fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy calculation.\\  
+
+
+To ensure consistency in our calculations, each crystal's lattice parameters were optimized variationally before conducting energy calculations on it.  The cell optimization was run with an external pressure $P_{\text{ext}} = 1 \text{bar}$, at $T = 0 \text{K}$ for all systems. Constraints were set explicitly to maintain the angles and symmetry of the cell, whose boundary conditions are periodic. The lattice constants were obtained variationally following the KS DFT scheme.\\ 
+
+Two calculation methods were used for the energy; one based on the variational self-consistent field method (SCF) and the other on single excitation perturbation theory\cite{xpt}. Both methods used absolutely localized molecular orbitals (ALMOs) to express the intermediate wavefunction in calculations. As further elaborated elsewhere, ALMOs are expanded in a basis of spherical Gaussian orbitals centered at each atom, and defined as zero past a certain distance $R_{cut}$ from the atom's center. Two fragments are considered neighbours when their localization regions (defined by $R_{cut}$) overlap.
+
+By progressively increasing $R_{cut}$, we therefore increase the number of neighbours each fragment can exchange charge with. This therefore leads to greater charge delocalization, greater values of $\Delta E_{CT}\left(R_{cut}\right)$, and greater values of $\Delta E_{tot}\left(R_{cut}\right)$, the obtained binding energy (the other terms being unaffected by varying $R_{cut}$). As $R_{cut}$ goes to infinity (or grows to a value large enough that each fragment's neighbourhood encompasses the entire lattice), the $\Delta E_{tot}$ becomes the overall binding energy of the crystal.
+
+Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, atoms) were charged according to their electronegativity and the stoechiometry of the crystal (to ensure the unit cell remains neutral). For example, two electrons were removed from each titanium atom and placed an oxygen atom each in $\text{TiO}_{2}$; the fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy decomposition. This enabled the DFT calculations to be run on closed shell systems, which is faster and avoids spin contamination of the ground state wavefunction (used in calculations) with excited states.\\
+
+
+KS-DFT energy calculations were also run on single ions (still assuming periodic boundary consitions) for each crystal in order to isolate the ionization contribution to the energy of the system. For a lattice compound $\text{M}_{n}\text{X}_{m}$(s) with $N$ ions, the lattice energy was computed as follows: $\Delta E_{lattice} = E_{full SCF} - (n\; E_{\text{M}^{+}} + m\; E_{\text{X}^{-}}\;\frac{N}{n+m}$. Where $E_{full SCF}$ is the energy obtained from running classic KS-DFT calculations on the crystal and $E_{\text{M}^{+}}$ and $E_{\text{X}^{-}}$ are the respective results of similar calculations on a single anion and cation from its structure. In most cases, the ionization accounted for more than half of the system's energy. Separating such an important contribution from the rest of the energy terms was justified because $\Delta E_{lattice}$ describes the energy released when a gas of ions cohere to form a crystalline solid, making it a better quantification of the binding interactions between ions.
+
+
+
+%allowed us to focus on the binding effects and the importance of CT for the system's cohesion. Indeed, the lattice energy of a crystal refers to the energy needed to separate the crystal into a gas mixture of its constituent ions, thus describing the strength of the bonds keeping the solid together.   Furthermore, the fragments used in the ALMO code were already charged, thus making the ionization process of the atoms irrelevant to the interactions within the crystal it was modelling. 
+ 
+
+
+%As explained in earlier works, the ALMO EDA scheme calculates the overall ground state binding energy as the sum of three terms: $\Delta E_{tot} = \Delta E_{frz} + \Delta E_{pol} + \Delta E_{CT}$. The energy lowering $\Delta E_{frz} + \Delta E_{pol}$ corresponds to the energy difference between infinitely separated ions and ions who are arranged in a crystal lattice whose individual charge distributions are relaxed (i.e. polarized) but constrained to a single ion; $\Delta E_{CT}$ thus represents the energy lowering caused by removing the constraint keeping valence electrons localized in atomic orbitals.  This constraint is enforced by choosing a cutoff radius $R_{cut}$ beyond which density matrix elements are zero. If the distance separating two ions is smaller than the sum of their repsective of $R_{cut}$, they are considered neighbours. 
+
+
+
+
+\subsection*{Alkali-halides}
+
+
+%Ionic bonds are one of the simplest kinds of binding mechanisms in condensed matter physics. They occur between two atoms with largely differing electronegtaivities and are often modelled as a classical phenomenon mainly driven by the Coulomb attraction of an anion to a cation. 
+Alkali halide salts can be viewed as prototypical ionic compounds due to their simple binary nature and the large difference in electronegativity between alkalis and halogens. The compounds composed of the lighter elements of both groups crystallize to form cubic (fcc) lattices. 
+Calculations were carried out on five such compounds: LiF, LiI, NaCl, RbF, and RbI. The basis set used to model the electronic state for these crystals was optimized for short-ranged interactions in molecular systems\cite{molopt}. The calculations were carried out on a periodic cubic lattice of $3 \times 3 \times 3$ unit cells, containing $N = 216$ atoms in total. A density cutoff of 1800 Ry was used to model the electron density.
+The lattice parameters obtained from the cell optimisation calculations and used in the calculations are listed in Table \ref{table:lattconsts}.\\
+
+
+\begin{table}[]
+\centering
+\caption{Optimized lattice constants of alkali-halide ionic crystals.}
+\label{table:lattconsts}
+\begin{tabular}{|l|l|}
+\hline
+System & a $(\angstrom)$ \\ \hline
+LiF    & 4.082667        \\ \hline
+%LiCl   & 5.155333        \\ \hline
+%LiBr   & 5.529333        \\ \hline
+LiI    & 6.048667        \\ \hline
+%NaF    & 4.744667        \\ \hline
+NaCl   & 5.736667        \\ \hline
+%NaBr   & 6.079000        \\ \hline
+%NaI    & 6.491000        \\ \hline
+%KF     & 5.429000        \\ \hline
+%KCl    & 6.399000        \\ \hline
+%KBr    & 6.730000        \\ \hline
+%KI     & 7.190667        \\ \hline
+RbF    & 5.759667        \\ \hline
+%RbCl   & 6.723333        \\ \hline
+%RbBr   & 7.055000        \\ \hline
+RbI    & 7.510667        \\ \hline
+%CsF    & 6.117000        \\ \hline
+\end{tabular}
+\end{table} 
+
+Our study of CT effects in alkali-halide crystals confirms the ionic character of these compunds. Indeed in all five cases, over 95\%l of the overall binding energy was recovered by setting $R_{cut}$, thus neglecting any possible charge transfer between the ions. We can furthermore see that we only need to take into the CT effects between an ion and its immediate neighbours (i.e. the group of ions closest to it; these lattices being fcc each ion has six immediate neighbours)to come within slightly less than 0.6\% of the total lattice energy. 
+These results go to show that binding in alkali-halide salts is dominated by Coulomb interaction and polarization of atomic orbitals, which confirms the model proposed by Rittner and more recently expanded upon by T\"{o}rring \emph{et al}. These systems systems are known insulators with a large band gap, which is why they served as references to compare our results from other less straightforward systems to.
+Interestingly enough however a notable proportion of the CT energy lowering is not recovered by allowing interactions between immediate neighbours. In
+\begin{figure}
+\includegraphics[scale=1]{./plots/LiF_EvR}
+\caption{LiF}
+\label{lif}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=1]{./plots/LiI_EvR}
+\caption{LiI}
+\label{lii}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=1]{./plots/NaCl_EvR}
+\label{nacl}
+\caption{NaCl}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=1]{./plots/RbF_EvR}
+\label{rbf}
+\caption{RbF}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=1]{./plots/RbI_EvR}
+\caption{RbI}
+\label{rbi}
+\end{figure}
+
+
+
+
+
+
+\subsection*{ $\text{MgH}_{2}$ }
+
+Binding in magnesium hydride is somewhat more intricate than in alkali-halides. While $\text{Mg}_{2}$ is also an ionic compound, the covalent character of the Mg-H bond has been known for over four decades and continues to be confirmed by experiment and \emph{ab-initio} studies in more recent works. In this work, we use ALMO to estimate the degree to which the electrons are localized around their resective ions in this crystal and the contribution of CT effects to the cohesive forces keeping the ions bound together.    
+
+
+
+
+The cell parameters for this system were optimized on a lattice of $N = 72$ ($2\times 2\times 3$ unit cells), using a mesh of $2\times 2\times 2\: k$-points, sampled following the Monkhorst-Pack scheme\cite{kpts}.\\ 
+Energy calculcations were run on a system of $N = 576$ atoms ($4\times 4\times 6$ unit cells) without using $k$-points. The cell parameters obtained from the optimization were $a = b = 4.532\angstrom$, $c = 3.007\angstrom$. The electron density was cutoff at 300 Ry. The pseudopotential used to model magnesium's core electronic/nuclear charge only took two core electrons (instead of ten in total) into account.
+\\ 
+\begin{figure}
+\includegraphics[scale=1]{plots/MgH2_EvR}
+\caption{$\text{MgH}_{2}$}
+\end{figure}
+
+
+ALMO-DFT on this system reveals that assuming a completely ionic character for the Mg-H bond yields only roughly 77\% of the crystal's overall lattice energy, thus demonstrating its covalent nature. Increasing $R_{cut}$ just enough so that each ion can only interact with its immediate neighbours lowers the calculated lattice energy by 29.69 kJ/mol/atom, thus recovering 96.25\% of the crystal's lattice energy. However, increasing the number of neighbours each ion can interact with only marginally lowers the lattice energy. This goes to show the degree to which the charge density is localized in this crystal; despite the importance of CT effects between an ion and its immediate neighbours, representing the electronic distribution as diffuse and spatially unrestrained only brings marginal improvements to the accuracy of our calculation.
+
+
+
+
+\subsection*{$\text{TiO}_{2}$}
+
+
+Due to its wide range of industrial applications, titanium dioxide has been the subject of researchers' interest for over three decades. More recently its surface properties have revealed of potential use in a variety of contexts and have therefore motivated experimental and \emph{ab-initio} scrutiny of its structure and characteristics. While seen as an ionic solid, the ionic form of titanium expected to be found in $\text{TiO}_{2}$, $\text{Ti}^{4+}$, has never been observed as such because removing four electrons from titanium requires a large amount of energy. This raises many questions about the binding mechanism in such a system:
+\begin{itemize}
+\item Can titanium be reasonably described as $\text{Ti}^{4+}$ in this crystal?
+\item If so, what mechanisms (CT or other) allow it to remain stable?
+\item If not:
+	\begin{itemize}
+	\item What explains the macroscopic properties does $\text{TiO}_{2}$ have the macroscopic characteristics of an ionic solid?
+	\item To what degree can we describe the Ti-O bond as covalent in such systems?
+	\end{itemize}
+\end{itemize}
+
+Running ALMO-DFT calculations allowing for different degrees of interfragment CT allowed us to shed some light on these questions.
+These runs used a lattice of $N = 576$ atoms (same as for magnesium hydride: $4\times 4\times 6$ u.c.), with an electronic density cutoff of 1000 Ry.\\
+The relaxed lattice parameters used for energy calculations were $a = b = 4.715\angstrom$ and $c = 3.034\angstrom$.\\
+
+
+\begin{figure}
+\includegraphics[scale=1]{plots/TiO2_EvR}
+\caption{$\text{TiO}_{2}$}
+\label{tio2graph}
+\end{figure}
+
+Figure \ref{tio2graph} shows us that CT effects account for 57.03\% of the crystal's lattice energy, while only allowing local CT between ions and their immediate neighbours recovers 98.76\%. This seems charactersistic bonds with a strong covalent character, which are usually modelled as allowing electrons to move from a fragment to one of its immediate neighbours, but no further. 
+Another argument for the covalence of the Ti-O bond in $\text{TiO}_{2}$ is the fact that allowing valence electrons to only move between an ion and its closest neighbours further recover 97.82\% of the CT terms in the overall energy lowering. This goes to show that the quasi-totality of the interfragment CT responsible for stabilizing the system is done between neighbouring atoms, similarly to covalently-bonded molecular systems. Thus, not only do CT effects play a major role in the electronic structure of this system, but they also mainly take place between immediate neighbours. 
+ This supports the claim [CHANGE PHRASE HERE TO INCLUDE LITERATURE] that titanium atoms in this system are not fully ionized as $\text{Ti}^{4+}$.\\
+
+While these results seem qualitatively similar to what was obtained for magnesium hydride, it is worth noting the total (i.e. allowing full delocalization) value of $E_{CT}$ for $\text{TiO}_{2}$ is roughly 500 kJ/mol/atom which is more than ten times what was found for $\text{MgH}_{2}$. CT also terms represent a much larger proportion of the energy lowering in $\text{TiO}_{2}$ than in $\text{MgH}_{2}$. Furthermore, as was noted previously recovering values of $\Delta E_{CT}$ close to their values obtained through traditional DFT methods requires much greater electron delocalization in $\text{MgH}_{2}$ than in $\text{TiO}_{2}$
+  
+
+
+
+
+
+
+
+%However $\text{TiO}_{2}$ also served to study the scalability of our calculation  methods with respect to system size. For such runs, a new algorithm was implemented to invert the overlap matrix which relied on matrix Taylor expansion. Outlined here is a heuristic explanation of the procedure, assuming we are trying to invert the Hermitian matrix $M\in\C^{n\times n} (n\in\N)$.
+
+
+
+
+
+
+
+%First, let $M = A + B$ where $A$ corresponds to $M$'s diagonal elements. Assuming all of $M$'s eigenvalues are nonzero, we can invert $A$ simply by taking the reciprocal of its entries (which all lie along its diagonal): $A^{-1}_{j,j} = (A_{j,j})^{-1}$ (for $1\le j \le n$). We get:
+
+%\begin{align*}
+%M = A (\mathbb{I} + A^{-1}B) \implies M^{-1} &= [A (\mathbb{I} + A^{-1}B)]^{-1} \\
+%&= (I + A^{-1}B)^{-1} A^{-1}
+%\end{align*} 
+
+%The Frobenius norm of matrix $M\in\C^{n\times n}$ is defined as:
+
+%\begin{equation*}
+%\norm{M} \vcentcolon=\sqrt{\sum_{i,j}^{n} \mid M_{i,j} \mid ^{2}}
+%\end{equation*}
+
+%Assuming that $A^{-1}B$ is diagonalizable and $\mid\lambda_{i}\mid < 1 (1\le i\le n)$ where $\lambda_{i}$ denotes $A^{-1}B$'s $i^{th}$ eigenvalue, we can expand $(\mathbb{I} + A^{-1}B)^{-1}$ the same way one can expand 
+%$f(z) = \frac{1}{1+z}$ about $z_{0} = 0$, where $\mid z \mid < 1$\cite{matrixfunc};
+
+%\begin{equation*}
+%M^{-1} = \Big(\sum_{k=0}^{\infty} (-1)^k \,(A^{-1}B)^k \Big) A^{-1} = A^{-1} - A^{-1}BA^{-1} + A^{-1}BA^{-1}BA^{-1} - \ldots
+%\end{equation*}
+ 
+%In practice the infinite sum is truncated at some $N\in\Ns$, therefore the resulting matrix is usually not the exact inverse $M^{-1}$. It is however possible to get a quantitative measurement of the accuracy this truncated estimate (denoted $M^{-1}_{N}$) by calculating the error $E_{N} = \norm{\mathbb{I} - M^{-1}_{N}\, M}$, where $\norm{\cdot}$ denotes a matrix norm. Assuming all the conditions mentioned above hold, we must have $E_{N}\xrightarrow[N\to\infty] \, 0$. \\
+
+
+
+\subsection*{BN}
+
+
+
+
+
+
+\section{Conclusions} 
+
+In this paper we aimed to restrain electronic delocalization in our DFT calculations with the following goals:
+\begin{enumerate}
+\item{Better understand the role charge transfer plays in the bonding propertie of different types of solids}
+\item{Implement a linear scaling DFT method on systems where electrons are known to be localized}
+\end{enumerate}
+The results obatined using the ALMO scheme in our energy calcuations yielded results conistent with the current understanding of bonding in all systems we studied; weakly interacting solids with strong ionic character did not yield high values of $E_{CT}$ and conversely, CT effects played an important for systems known to be more covalent.
+However, an important that deserves highlighting is that the ALMO method is best suited for systems like titania; systems exhibiting a notable amount of interfragment CT but with a large band gap. Indeed, restricting valence electrons to the confines of an ion's immediate neighbourhood yielded very accurate results, and only slightly loosening such constraints gives energies that quasi-identical to those obtained through traditional KS DFT methods. Enforcing locality upon the electronic states ensures sparcity of the matrices being manipulated in calculations and dramatically increases the efficiency of such calculations on large systems ($N\geq 1000$ atoms).
+[Part about BN still being problematic]
+[Timing part]
+
+
+
+\textbf{Acknowledgments.} The research was funded by the Natural Sciences and Engineering Research Council of Canada through the Discovery Grant. The authors are grateful to Compute Canada and McGill HPC Centre for computer time.
+
+%\textbf{Supporting Information}
+%Calculated radial distribution functions of liquid water, comparison of timing benchmarks for the DZVP and TZV2P basis sets, timing benchmarks for systems containing 32,768 water molecules, timing benchmarks for the Kohn-Sham matrix build. This material is available free of charge via the Internet at http://pubs.acs.org.
+
+%\bibliography{almo-expand}
+
+\end{document}
