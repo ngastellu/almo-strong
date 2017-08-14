@@ -52,7 +52,7 @@ Using absolutely localized molecular orbitals for deeper physical insight into t
 \date{\today}
 
 \begin{abstract}
-Absolutely localized nonorthogonal molecular orbitals are promising for developing low-cost linear scaling reformulation of Kohn-Sham density functional theory. $\ldots$
+Absolutely localized nonorthogonal molecular orbitals are promising for developing low-cost linear scaling reformulation of Kohn-Sham density functional theory.$\ldots$
 %In a recent development, we resolved one of the key issues of has been resolved that lead to the development of a series of efficient DFT methods for weakly-interacting molecular systems. Here, we tested the new method on more challenging strongly interacting systems to understand limits of its applicability. 
 \end{abstract}
 
@@ -60,7 +60,8 @@ Absolutely localized nonorthogonal molecular orbitals are promising for developi
  
 \section{Outline of research}
 
-Accuracy-speed tests for the following candidate systems with varying importance of charge-delocalization effects. Unless stated otherwise the systems are static (no molecular dynamics).
+Accuracy-speed tests for the following candidate systems with varying importance of charge-delocalization effects. 
+Unless stated otherwise the systems are static (no molecular dynamics).
 
 \begin{itemize}
 \item Alkali halides
@@ -84,21 +85,42 @@ Accuracy-speed tests for the following candidate systems with varying importance
 
 \section*{Results and discussion}
  
-All simulations used the Kohn-Sham density functional theory (KS DFT) at the GGA level of theory. The calculations were run using the CP2K/QUICKSTEP package\cite{cp2k}, which implements the hybrid Gaussian and planewaves scheme\cite{gpw}. The core electrons and nuclei were modelled using the norm-conserving GTH pseudopotentials\cite{gth1,gth2}, while valence electronic wavefunctions were expressed in a $\text{double-}\zeta$  Gaussian basis \cite{gaussian} with a set of polarization functions taken from the Dunning basis (cc-pVXZ)\cite{pol,qs}.The PBE exchange-correlation (XC) functional\cite{pbe} was used for calculations on all alkali-halide salts and $\text{MgH}_{2}$. The hybrid BLYP XC functional\cite{becke,lyp} was used for $\text{TiO}_{2}$ and BN. All simulations were run with periodic boundary conditions.\\
+All simulations used the Kohn-Sham density functional theory (KS DFT) at the GGA level of theory. 
+The calculations were run using the CP2K/QUICKSTEP package\cite{cp2k}, which implements the hybrid Gaussian and planewaves scheme\cite{gpw}. 
+The core electrons and nuclei were modelled using the norm-conserving GTH pseudopotentials\cite{gth1,gth2}, while valence electronic wavefunctions were expressed in a $\text{double-}\zeta$  Gaussian basis \cite{gaussian} with a set of polarization functions taken from the Dunning basis (cc-pVXZ)\cite{pol,qs}.The PBE exchange-correlation (XC) functional\cite{pbe} was used for calculations on all alkali-halide salts and $\text{MgH}_{2}$. 
+The hybrid BLYP XC functional\cite{becke,lyp} was used for $\text{TiO}_{2}$ and BN. 
+All simulations were run with periodic boundary conditions.\\
 
-Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, atoms) were charged according to their electronegativity and in a way that ensures the unit cell remains neutral. For example, two electrons were removed from each titanium atom and placed an oxygen atom each in $\text{TiO}_{2}$; the fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy calculation.\\  
-
-
-To ensure consistency in our calculations, each crystal's lattice parameters were optimized variationally before conducting energy calculations on it.  The cell optimization was run with an external pressure $P_{\text{ext}} = 1 \text{bar}$, at $T = 0 \text{K}$ for all systems. Constraints were set explicitly to maintain the angles and symmetry of the cell, whose boundary conditions are periodic. The lattice constants were obtained variationally following the KS DFT scheme.\\ 
-
-Two calculation methods were used for the energy; one based on the variational self-consistent field method (SCF) and the other on single excitation perturbation theory\cite{xpt}. Both methods used absolutely localized molecular orbitals (ALMOs) to express the intermediate wavefunction in calculations. As further elaborated elsewhere, ALMOs are expanded in a basis of spherical Gaussian orbitals centered at each atom, and defined as zero past a certain distance $R_{cut}$ from the atom's center. Two fragments are considered neighbours when their localization regions (defined by $R_{cut}$) overlap.
-
-By progressively increasing $R_{cut}$, we therefore increase the number of neighbours each fragment can exchange charge with. This therefore leads to greater charge delocalization, greater values of $\Delta E_{CT}\left(R_{cut}\right)$, and greater values of $\Delta E_{tot}\left(R_{cut}\right)$, the obtained binding energy (the other terms being unaffected by varying $R_{cut}$). As $R_{cut}$ goes to infinity (or grows to a value large enough that each fragment's neighbourhood encompasses the entire lattice), the $\Delta E_{tot}$ becomes the overall binding energy of the crystal.
-
-Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, atoms) were charged according to their electronegativity and the stoechiometry of the crystal (to ensure the unit cell remains neutral). For example, two electrons were removed from each titanium atom and placed an oxygen atom each in $\text{TiO}_{2}$; the fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy decomposition. This enabled the DFT calculations to be run on closed shell systems, which is faster and avoids spin contamination of the ground state wavefunction (used in calculations) with excited states.\\
+Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, atoms) were charged according to their electronegativity and in a way that ensures the unit cell remains neutral. 
+For example, two electrons were removed from each titanium atom and placed an oxygen atom each in $\text{TiO}_{2}$; the fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy calculation.\\  
 
 
-KS-DFT energy calculations were also run on single ions (still assuming periodic boundary consitions) for each crystal in order to isolate the ionization contribution to the energy of the system. For a lattice compound $\text{M}_{n}\text{X}_{m}$(s) with $N$ ions, the lattice energy was computed as follows: $\Delta E_{lattice} = E_{full SCF} - (n\; E_{\text{M}^{+}} + m\; E_{\text{X}^{-}}\;\frac{N}{n+m}$. Where $E_{full SCF}$ is the energy obtained from running classic KS-DFT calculations on the crystal and $E_{\text{M}^{+}}$ and $E_{\text{X}^{-}}$ are the respective results of similar calculations on a single anion and cation from its structure. In most cases, the ionization accounted for more than half of the system's energy. Separating such an important contribution from the rest of the energy terms was justified because $\Delta E_{lattice}$ describes the energy released when a gas of ions cohere to form a crystalline solid, making it a better quantification of the binding interactions between ions.
+To ensure consistency in our calculations, each crystal's lattice parameters were optimized variationally before conducting energy calculations on it. 
+The cell optimization was run with an external pressure $P_{\text{ext}} = 1 \text{bar}$, at $T = 0 \text{K}$ for all systems. 
+Constraints were set explicitly to maintain the angles and symmetry of the cell, whose boundary conditions are periodic. 
+The lattice constants were obtained variationally following the KS DFT scheme.\\ 
+
+Two calculation methods were used for the energy; one based on the variational self-consistent field method (SCF) and the other on single excitation perturbation theory\cite{xpt}. 
+Both methods used absolutely localized molecular orbitals (ALMOs) to express the intermediate wavefunction in calculations. 
+As further elaborated elsewhere, ALMOs are expanded in a basis of spherical Gaussian orbitals centered at each atom, and defined as zero past a certain distance $R_{cut}$ from the atom's center. 
+Two fragments are considered neighbours when their localization regions (defined by $R_{cut}$) overlap.
+
+By progressively increasing $R_{cut}$, we therefore increase the number of neighbours each fragment can exchange charge with. 
+This therefore leads to greater charge delocalization, greater values of $\Delta E_{CT}\left(R_{cut}\right)$, and greater values of $\Delta E_{tot}\left(R_{cut}\right)$, the obtained binding energy (the other terms being unaffected by varying $R_{cut}$). 
+As $R_{cut}$ goes to infinity (or grows to a value large enough that each fragment's neighbourhood encompasses the entire lattice), the $\Delta E_{tot}$ becomes the overall binding energy of the crystal.
+
+Since the solids modelled in this work have a large band gap and a strong ionic character, 
+
+the ALMO fragments (here, atoms) were charged according to their electronegativity and the stoechiometry of the crystal (to ensure the unit cell remains neutral). 
+For example, two electrons were removed from each titanium atom and placed an oxygen atom each in $\text{TiO}_{2}$; the fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy decomposition. 
+This enabled the DFT calculations to be run on closed shell systems, which is faster and avoids spin contamination of the ground state wavefunction (used in calculations) with excited states.\\
+
+
+KS-DFT energy calculations were also run on single ions (still assuming periodic boundary consitions) for each crystal in order to isolate the ionization contribution to the energy of the system. 
+For a lattice compound $\text{M}_{n}\text{X}_{m}$(s) with $N$ ions, the lattice energy was computed as follows: $\Delta E_{lattice} = E_{full SCF} - (n\; E_{\text{M}^{+}} + m\; E_{\text{X}^{-}}\;\frac{N}{n+m}$. 
+Where $E_{full SCF}$ is the energy obtained from running classic KS-DFT calculations on the crystal and $E_{\text{M}^{+}}$ and $E_{\text{X}^{-}}$ are the respective results of similar calculations on a single anion and cation from its structure. 
+In most cases, the ionization accounted for more than half of the system's energy. 
+Separating such an important contribution from the rest of the energy terms was justified because $\Delta E_{lattice}$ describes the energy released when a gas of ions cohere to form a crystalline solid, making it a better quantification of the binding interactions between ions.
 
 
 
@@ -115,8 +137,12 @@ KS-DFT energy calculations were also run on single ions (still assuming periodic
 
 
 %Ionic bonds are one of the simplest kinds of binding mechanisms in condensed matter physics. They occur between two atoms with largely differing electronegtaivities and are often modelled as a classical phenomenon mainly driven by the Coulomb attraction of an anion to a cation. 
-Alkali halide salts can be viewed as prototypical ionic compounds due to their simple binary nature and the large difference in electronegativity between alkalis and halogens. The compounds composed of the lighter elements of both groups crystallize to form cubic (fcc) lattices. 
-Calculations were carried out on five such compounds: LiF, LiI, NaCl, RbF, and RbI. The basis set used to model the electronic state for these crystals was optimized for short-ranged interactions in molecular systems\cite{molopt}. The calculations were carried out on a periodic cubic lattice of $3 \times 3 \times 3$ unit cells, containing $N = 216$ atoms in total. A density cutoff of 1800 Ry was used to model the electron density.
+Alkali halide salts can be viewed as prototypical ionic compounds due to their simple binary nature and the large difference in electronegativity between alkalis and halogens. 
+The compounds composed of the lighter elements of both groups crystallize to form cubic (fcc) lattices. 
+Calculations were carried out on five such compounds: LiF, LiI, NaCl, RbF, and RbI. 
+The basis set used to model the electronic state for these crystals was optimized for short-ranged interactions in molecular systems\cite{molopt}. 
+The calculations were carried out on a periodic cubic lattice of $3 \times 3 \times 3$ unit cells, containing $N = 216$ atoms in total. 
+A density cutoff of 1800 Ry was used to model the electron density.
 The lattice parameters obtained from the cell optimisation calculations and used in the calculations are listed in Table \ref{table:lattconsts}.\\
 
 
@@ -147,7 +173,8 @@ RbI    & 7.510667        \\ \hline
 \end{tabular}
 \end{table} 
 
-Our study of CT effects in alkali-halide crystals confirms the ionic character of these compunds. Indeed in all five cases, over 95\%l of the overall binding energy was recovered by setting $R_{cut}$, thus neglecting any possible charge transfer between the ions. We can furthermore see that we only need to take into the CT effects between an ion and its immediate neighbours (i.e. the group of ions closest to it; these lattices being fcc each ion has six immediate neighbours)to come within slightly less than 0.6\% of the total lattice energy. 
+Our study of CT effects in alkali-halide crystals confirms the ionic character of these compunds. 
+Indeed in all five cases, over 95\%l of the overall binding energy was recovered by setting $R_{cut}$, thus neglecting any possible charge transfer between the ions. We can furthermore see that we only need to take into the CT effects between an ion and its immediate neighbours (i.e. the group of ions closest to it; these lattices being fcc each ion has six immediate neighbours)to come within slightly less than 0.6\% of the total lattice energy. 
 These results go to show that binding in alkali-halide salts is dominated by Coulomb interaction and polarization of atomic orbitals, which confirms the model proposed by Rittner and more recently expanded upon by T\"{o}rring \emph{et al}. These systems systems are known insulators with a large band gap, which is why they served as references to compare our results from other less straightforward systems to.
 Interestingly enough however a notable proportion of the CT energy lowering is not recovered by allowing interactions between immediate neighbours. In
 \begin{figure}
