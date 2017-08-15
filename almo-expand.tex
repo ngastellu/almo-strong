@@ -92,11 +92,13 @@ The PBE exchange-correlation (XC) functional\cite{pbe} was used for calculations
 The hybrid BLYP XC functional\cite{becke,lyp} was used for $\text{TiO}_{2}$ and BN. 
 All simulations were run with periodic boundary conditions.\\
 
-Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, atoms) were charged according to their electronegativity and the crystal's stoichiometry to ensure that the unit cell remains neutral. 
-For example, two electrons were removed from each magnesium atom and each placed on a hydrogen in $\text{MgH}_{2}$; the fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy calculation.\\  
+Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, atoms) were charged according to their electronegativity and the crystal's stoichiometry to ensure that the unit cell remained neutral. 
+For example, two electrons were removed from each magnesium atom and each placed on a hydrogen in $\text{MgH}_{2}$. 
+The fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy calculation.
+This allowed for calculations to be conducted on closed-shell systems and explicitly assumes these solids to be ionic.\\  
 
 
-To ensure consistency in our calculations, each crystal's lattice parameters were optimized variationally before conducting energy calculations on it. 
+To ensure consistency in our calculations, each crystal's lattice parameters were optimized variationally at the GGA-DFT level of theory before conducting energy calculations on it. 
 The cell optimization was run with an external pressure $P_{\text{ext}} = 1 \text{bar}$, at $T = 0 \text{K}$ for all systems. 
 Constraints were set explicitly to maintain the angles and symmetry of the cell, whose boundary conditions are periodic. 
 The lattice constants were obtained variationally following the KS DFT scheme.\\ 
@@ -217,17 +219,18 @@ Interestingly enough however a notable proportion of the CT energy lowering is n
 
 \subsection*{ $\text{MgH}_{2}$ }
 
-Binding in magnesium hydride is more intricate than in alkali-halides. While $\text{Mg}_{2}$ is also an ionic compound, the covalent character of the Mg-H bond has been known for over four decades and continues to be confirmed by experiment and \emph{ab-initio} studies in more recent works.
-In this work, we use ALMO to estimate the degree to which the electrons are localized around their resective ions in this crystal and the contribution of CT effects to the cohesive forces keeping the ions bound together.    
+Magnesium hydride is one of the main candidates for cheap hydrogen storage. 
+As such numerous efforts have been put into elucidating its binding structure. 
+While $\text{Mg}_{2}$ is an ionic compound, the covalent character of the Mg-H bond has been known for over four decades and continues to be confirmed by recent experimental data and theoretical models. 
+However, disagreement in the literature remains on the degree of ionicity exhibited by this system. 
+Indeed, all recent results indicate that Mg is almost fully ionized to its formal charge +2, yet consensus still has not been reached on the charge density around H in this system.
+We used ALMO DFT to estimate the degree to which the electrons are localized near their resective ions in this crystal and the contribution of CT effects to the cohesive forces keeping the ions bound together.    
 
-
-
-
-The cell parameters for this system were optimized on a lattice of $N = 72$ ($2\times 2\times 3$ unit cells), using a mesh of $2\times 2\times 2\: k$-points, sampled following the Monkhorst-Pack scheme\cite{kpts}.\\ 
+The cell parameters for this system were optimized on a lattice of $N = 72$ atoms ($2\times 2\times 3$ unit cells), using a mesh of $2\times 2\times 2\: k$-points, sampled following the Monkhorst-Pack scheme\cite{kpts}.\\ 
 Energy calculcations were run on a system of $N = 576$ atoms ($4\times 4\times 6$ unit cells) without using $k$-points.
 The cell parameters obtained from the optimization were $a = b = 4.532\angstrom$, $c = 3.007\angstrom$.
 The electron density was cutoff at 300 Ry. 
-The pseudopotential used to model magnesium's core electronic/nuclear charge only took two core electrons (instead of ten in total) into account.
+The pseudopotential used to model magnesium's core electronic/nuclear charge only took two core electrons (instead of ten in total) into account to improve convergence.
  
 \begin{figure}
 \includegraphics[scale=1]{plots/MgH2_EvR}
@@ -235,12 +238,16 @@ The pseudopotential used to model magnesium's core electronic/nuclear charge onl
 \end{figure}
 
 
-ALMO-DFT on this system reveals that assuming a completely ionic character for the Mg-H bond yields only roughly 77\% of the crystal's overall lattice energy, thus demonstrating its covalent nature. 
+ALMO-DFT on this system reveals that assuming a completely ionic character for the Mg-H bond yields only roughly 77\% of the crystal's overall lattice energy. 
+CT effects between the $\text{Mg}^{2+}$ and $\text{H}^+$ ions can therefore not be neglected in an accurate description of this crystal 
 Increasing $R_{cut}$ just enough so that each ion can only interact with its immediate neighbours lowers the calculated lattice energy by 29.69 kJ/mol/atom, thus recovering 96.25\% of the crystal's lattice energy. 
-However, increasing the number of neighbours each ion can interact with only marginally lowers the lattice energy. 
-This goes to show the degree to which the charge density is localized in this crystal; despite the importance of CT effects between an ion and its immediate neighbours, representing the electronic distribution as diffuse and spatially unrestrained only brings marginal improvements to the accuracy of our calculation.
-
-
+This also accounts for 82.98\% of its full CT energy lowering term, thus suggesting that the fully relaxed electronic structure of this crystal allows for notable CT between ions and some of their more distant neighbours.  
+%Further doubling the average number of neighbours each ion can interact with only brings us to 85.77\% of $E_{CT,full}$.
+%Comparing this to a textbook ionic compound like NaCl, where we found that interaction with first neighbours covered 81.57\% of $E_{CT,full}$ and similarly doubling the number of neighbours gets us to 
+%However, increasing the number of neighbours each ion can interact with only marginally lowers the lattice energy. 
+This goes to show the degree to which the charge density is localized in this crystal; despite the importance of CT effects between an ion and its immediate neighbours, representing the electronic distribution as diffuse and spatially unrestrained only brings marginal improvements to the accuracy of our calculation. 
+This seems to corroborate the \emph{ab-initio} results obtained by Ohba \embh{et al.} which estimated the ionic charge on H to be -0.26 at 0K and found the charge density around it to be much more diffuse.
+[IONIC WITH DIFFUSE CHARGE DENSITY NEAR H]
 
 
 \subsection*{$\text{TiO}_{2}$}
