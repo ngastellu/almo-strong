@@ -92,8 +92,8 @@ The PBE exchange-correlation (XC) functional\cite{pbe} was used for calculations
 The hybrid BLYP XC functional\cite{becke,lyp} was used for $\text{TiO}_{2}$ and BN. 
 All simulations were run with periodic boundary conditions.\\
 
-Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, atoms) were charged according to their electronegativity and in a way that ensures the unit cell remains neutral. 
-For example, two electrons were removed from each titanium atom and placed an oxygen atom each in $\text{TiO}_{2}$; the fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy calculation.\\  
+Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, atoms) were charged according to their electronegativity and the crystal's stoichiometry to ensure that the unit cell remains neutral. 
+For example, two electrons were removed from each magnesium atom and each placed on a hydrogen in $\text{MgH}_{2}$; the fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy calculation.\\  
 
 
 To ensure consistency in our calculations, each crystal's lattice parameters were optimized variationally before conducting energy calculations on it. 
@@ -217,7 +217,7 @@ Interestingly enough however a notable proportion of the CT energy lowering is n
 
 \subsection*{ $\text{MgH}_{2}$ }
 
-Binding in magnesium hydride is somewhat more intricate than in alkali-halides. While $\text{Mg}_{2}$ is also an ionic compound, the covalent character of the Mg-H bond has been known for over four decades and continues to be confirmed by experiment and \emph{ab-initio} studies in more recent works.
+Binding in magnesium hydride is more intricate than in alkali-halides. While $\text{Mg}_{2}$ is also an ionic compound, the covalent character of the Mg-H bond has been known for over four decades and continues to be confirmed by experiment and \emph{ab-initio} studies in more recent works.
 In this work, we use ALMO to estimate the degree to which the electrons are localized around their resective ions in this crystal and the contribution of CT effects to the cohesive forces keeping the ions bound together.    
 
 
@@ -246,23 +246,14 @@ This goes to show the degree to which the charge density is localized in this cr
 \subsection*{$\text{TiO}_{2}$}
 
 
-Due to its wide range of industrial applications, titanium dioxide has been the subject of researchers' interest for over three decades.
-More recently its surface properties have revealed of potential use in a variety of contexts and have therefore motivated experimental and \emph{ab-initio} scrutiny of its structure and characteristics. 
-While seen as an ionic solid, the ionic form of titanium expected to be found in $\text{TiO}_{2}$, $\text{Ti}^{4+}$, has never been observed as such because removing four electrons from titanium requires a large amount of energy. 
-This raises many questions about the binding mechanism in such a system:
+The properties of metal oxides have been the subject of rapidly growing interest, due to the variety of their applications in fields like catalysis or photovoltaic power generation. 
+Titanium dioxide is a popular model used to study such compounds due to its experimental convenience (ready supply, high surface quality) and simple structure.
+As such, a wide array of \emph{ab-initio} and experimental techniques have been used to study it and all agree on its key characteristics.
+$\text{TiO}_{2}$ is characterized as an ionic crystal yet in its most stable forms, rutile and anatase, it has been shown to exhibit strong covalent character.
+Indeed, the formal on charge on Ti in $\text{TiO}_{2}$ is +4 which, given the high ionization energy of Ti into $\text{Ti}^{4+}$ and the stability of $\text{TiO}_{2}$ in crystalline form, suggests that the ionic model is unsuited for this compound.
+This known Ti-O hybridization makes $\text{TiO}_{2}$ an interesting system in which to study CT effects. \\
 
-\begin{itemize}
-\item Can titanium be reasonably described as $\text{Ti}^{4+}$ in this crystal?
-\item If so, what mechanisms (CT or other) allow it to remain stable?
-\item If not:
-	\begin{itemize}
-	\item What explains the macroscopic properties does $\text{TiO}_{2}$ have the macroscopic characteristics of an ionic solid?
-	\item To what degree can we describe the Ti-O bond as covalent in such systems?
-	\end{itemize}
-\end{itemize}
-
-Running ALMO-DFT calculations allowing for different degrees of interfragment CT allowed us to shed some light on these questions.
-These runs used a lattice of $N = 576$ atoms (same as for magnesium hydride: $4\times 4\times 6$ u.c.), with an electronic density cutoff of 1000 Ry.\\
+We ran ALMO-DFT calcualtions on a lattice of $N = 576$ atoms (same as for magnesium hydride: $4\times 4\times 6$ u.c.), with an electronic density cutoff of 1000 Ry. We only considered rutile stoichiometric $\text{TiO}_{2}$ which is one of its most stable manifestations.\\
 The relaxed lattice parameters used for energy calculations were $a = b = 4.715\angstrom$ and $c = 3.034\angstrom$.\\
 
 
@@ -273,11 +264,12 @@ The relaxed lattice parameters used for energy calculations were $a = b = 4.715\
 \end{figure}
 
 Figure \ref{tio2graph} shows us that CT effects account for 57.03\% of the crystal's lattice energy, while only allowing local CT between ions and their immediate neighbours recovers 98.76\%.
-This seems charactersistic bonds with a strong covalent character, which are usually modelled as allowing electrons to move from a fragment to one of its immediate neighbours, but no further. 
+%This seems charactersistic of bonds with strong covalent character, which are usually modelled as allowing electrons to move from a fragment to one of its immediate neighbours, but no further.
+This is consistent with the intuitve description of a covalent bond as a pair of electrons localized between an atom and its close neighbours. While the quantum mechanical description of a covalent bond is still spatially diffuse, it still predicts that the electrons that compose the bond are extremely likely to remain close to the bound atoms.
 Another argument for the covalence of the Ti-O bond in $\text{TiO}_{2}$ is the fact that allowing valence electrons to only move between an ion and its closest neighbours further recover 97.82\% of the CT terms in the overall energy lowering. 
 This goes to show that the quasi-totality of the interfragment CT responsible for stabilizing the system is done between neighbouring atoms, similarly to covalently-bonded molecular systems. 
 Thus, not only do CT effects play a major role in the electronic structure of this system, but they also mainly take place between immediate neighbours. 
-This supports the claim [CHANGE PHRASE HERE TO INCLUDE LITERATURE] that titanium atoms in this system are not fully ionized as $\text{Ti}^{4+}$.\\
+This is compeleltely congruous to the literature's current understanding of this compound's bulk electronic structure.\\
 
 While these results seem qualitatively similar to what was obtained for magnesium hydride, it is worth noting the total (i.e. allowing full delocalization) value of $E_{CT}$ for $\text{TiO}_{2}$ is roughly 500 kJ/mol/atom which is more than ten times what was found for $\text{MgH}_{2}$.
 CT also terms represent a much larger proportion of the energy lowering in $\text{TiO}_{2}$ than in $\text{MgH}_{2}$.
