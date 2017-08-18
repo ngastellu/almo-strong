@@ -9,14 +9,17 @@
 %\documentclass[preprint,aps,draft]{revtex4}
 %\documentclass[prb,amsmath,amssymb]{revtex4}% Physical Review B
 
+\usepackage{tikz}
 \usepackage{graphicx}% Include figure files
 \usepackage{epstopdf} %convert graphics
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
 \usepackage{amsmath}% bold math
 \usepackage{color}
+\usepackage{booktabs}
 %\usepackage[normalem]{ulem}
 %\nofiles
+\usetikzlibrary{positioning}
 
 %shortcuts for sets of numbers
 \newcommand{\Ns}{\mathbb{N}^{*}}
@@ -34,7 +37,7 @@
 %\bibliographystyle{unsrt}
 
 
-
+%[COMPARE RAW NUMBERS; Elat (the bigger, the more ionic), Ect, etc.]
 
 
 \begin{document}
@@ -90,9 +93,9 @@ The calculations were run using the CP2K/QUICKSTEP package\cite{cp2k}, which imp
 The core electrons and nuclei were modelled using the norm-conserving GTH pseudopotentials\cite{gth1,gth2}, while valence electronic wavefunctions were expressed in a $\text{double-}\zeta$  Gaussian basis \cite{gaussian} with a set of polarization functions taken from the Dunning basis (cc-pVXZ)\cite{pol,qs}.
 The PBE exchange-correlation (XC) functional\cite{pbe} was used for calculations on all alkali-halide salts and $\text{MgH}_{2}$. 
 The hybrid BLYP XC functional\cite{becke,lyp} was used for $\text{TiO}_{2}$ and BN. 
-All simulations were run with periodic boundary conditions.\\
+All simulations were run with periodic boundary conditions, at $T = 0\;\text{K}$.\\
 
-Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, atoms) were charged according to their electronegativity and the crystal's stoichiometry to ensure that the unit cell remained neutral. 
+Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, individual atoms) were charged according to their electronegativity and the crystal's stoichiometry to ensure that the unit cell remained neutral. 
 For example, two electrons were removed from each magnesium atom and each placed on a hydrogen in $\text{MgH}_{2}$. 
 The fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy calculation.
 This allowed for calculations to be conducted on closed-shell systems and explicitly assumes these solids to be ionic.\\  
@@ -120,7 +123,10 @@ This enabled the DFT calculations to be run on closed shell systems, which is fa
 
 
 KS-DFT energy calculations were also run on single ions (still assuming periodic boundary consitions) for each crystal in order to isolate the ionization contribution to the energy of the system. 
-For a lattice compound $\text{M}_{n}\text{X}_{m}$(s) with $N$ ions, the lattice energy was computed as follows: $\Delta E_{lattice} = E_{full SCF} - (n\; E_{\text{M}^{+}} + m\; E_{\text{X}^{-}}\;\frac{N}{n+m}$. 
+For a lattice compound $\text{M}_{n}\text{X}_{m}$(s) with $N$ ions, the lattice energy was computed as follows: 
+\begin{equation*}
+\Delta E_{lattice} = E_{full SCF} - (n\; E_{\text{M}^{+}} + m\; E_{\text{X}^{-}}\;\frac{N}{n+m}
+\end{equation*} 
 Where $E_{full SCF}$ is the energy obtained from running classic KS-DFT calculations on the crystal and $E_{\text{M}^{+}}$ and $E_{\text{X}^{-}}$ are the respective results of similar calculations on a single anion and cation from its structure. 
 In most cases, the ionization accounted for more than half of the system's energy. 
 Separating such an important contribution from the rest of the energy terms was justified because $\Delta E_{lattice}$ describes the energy released when a gas of ions cohere to form a crystalline solid, making it a better quantification of the binding interactions between ions.
@@ -139,19 +145,20 @@ Separating such an important contribution from the rest of the energy terms was 
 \subsection*{Alkali-halides}
 
 
-%Ionic bonds are one of the simplest kinds of binding mechanisms in condensed matter physics. They occur between two atoms with largely differing electronegtaivities and are often modelled as a classical phenomenon mainly driven by the Coulomb attraction of an anion to a cation. 
-Alkali halide salts can be viewed as prototypical ionic compounds due to their simple binary nature and the large difference in electronegativity between alkalis and halogens. 
-The compounds composed of the lighter elements of both groups crystallize to form cubic (fcc) lattices. 
+%Ionic bonds are one of the simplest kinds of binding mechanisms in condensed matter physics. They occur between two atoms with largely differing electronegtaivities and are often modelled as a classical phenomenon mainly driven by the Coulomb attraction of an anion to a cation.
+We begin by running ALMO DFT calculations on simple systems with very little interfragment CT to better appreciate the role it plays systems with more subtly defined electronic densities.
+Alkali halide salts can be viewed as prototypical ionic compounds due to their simple binary nature and the large difference in electronegativity between alkalis and halogens\cite{alkhalbook}. 
+Most of these compounds crystallize to form fcc lattices. 
 Calculations were carried out on five such compounds: LiF, LiI, NaCl, RbF, and RbI. 
 The basis set used to model the electronic state for these crystals was optimized for short-ranged interactions in molecular systems\cite{molopt}. 
 The calculations were carried out on a periodic cubic lattice of $3 \times 3 \times 3$ unit cells, containing $N = 216$ atoms in total. 
 A density cutoff of 1800 Ry was used to model the electron density.
 The lattice parameters obtained from the cell optimisation calculations and used in the calculations are listed in Table \ref{table:lattconsts}.\\
 
-
+[ADD EXPERIMENTAL DATA COLUMN AND COMMENT BRIEFLY]
 \begin{table}[]
 \centering
-\caption{Optimized lattice constants of alkali-halide ionic crystals.}
+\caption{Lattice constants of alkali-halide ionic crystals.}
 \label{table:lattconsts}
 \begin{tabular}{|l|l|}
 \hline
@@ -176,12 +183,13 @@ RbI    & 7.510667        \\ \hline
 \end{tabular}
 \end{table} 
 
-Our study of CT effects in alkali-halide crystals confirms the ionic character of these compunds. 
-Indeed in all five cases, over 95\%l of the overall binding energy was recovered by setting $R_{cut}$, thus neglecting any possible charge transfer between the ions.
-We can furthermore see that we only need to take into the CT effects between an ion and its immediate neighbours (i.e. the group of ions closest to it; these lattices being fcc each ion has six immediate neighbours)to come within slightly less than 0.6\% of the total lattice energy. 
-These results go to show that binding in alkali-halide salts is dominated by Coulomb interaction and polarization of atomic orbitals, which confirms the model proposed by Rittner and more recently expanded upon by T\"{o}rring \emph{et al}.
-These systems systems are known insulators with a large band gap, which is why they served as references to compare our results from other less straightforward systems to.
-Interestingly enough however a notable proportion of the CT energy lowering is not recovered by allowing interactions between immediate neighbours. In
+Our study of CT effects in alkali-halide crystals confirms the ionic character of these compounds. 
+Indeed in all five cases, over 95\% of the overall binding energy was recovered by setting $R_{cut} = 0\angstrom$, thus neglecting any possible charge transfer between the ions.
+We can furthermore see that considering the CT effects only between an ion and its immediate neighbours (i.e. the group of ions closest to it; these lattices being fcc each ion has six immediate neighbours) neglects less than 0.6\% of the total lattice energy. 
+These results show that binding in alkali-halide salts is dominated by Coulomb interaction and polarization of atomic orbitals, which confirms the model proposed by Rittner\cite{rittner} and more recently expanded upon by T\"{o}rring \emph{et al}\cite{torring}.
+These systems systems are known insulators with a large band gap and thus negligible CT, which is why they served as references to compare our results from other, less straightforward, systems to.
+By slowly increasing the localization radius of each ions' electron density, we were able to reveal how localized it actually was.
+
 \begin{figure}
 \includegraphics[scale=1]{./plots/LiF_EvR}
 \caption{LiF}
@@ -215,17 +223,14 @@ Interestingly enough however a notable proportion of the CT energy lowering is n
 
 
 
-
-
 \subsection*{ $\text{MgH}_{2}$ }
 
-Magnesium hydride is one of the main candidates for cheap hydrogen storage. 
-As such numerous efforts have been put into elucidating its binding structure. 
-While $\text{Mg}_{2}$ is an ionic compound, the covalent character of the Mg-H bond has been known for over four decades and continues to be confirmed by recent experimental data and theoretical models. 
+The binding properties of magnesium hydride have garnered considerable research interest as it is considered one of the most promising materials for cheap hydrogen storage\cite{}.  
+In its solid form, $\text{Mg}_{2}$ is modelled as an ionic compound, yet the covalent character of the Mg-H bond in the crystal has been known for over four decades\cite{oldmgh2} and continues to be confirmed by recent experimental data\cite{mgh2exp}. 
 However, disagreement in the literature remains on the degree of ionicity exhibited by this system. 
-Indeed, all recent results indicate that Mg is almost fully ionized to its formal charge +2, yet consensus still has not been reached on the charge density around H in this system.
-We used ALMO DFT to estimate the degree to which the electrons are localized near their resective ions in this crystal and the contribution of CT effects to the cohesive forces keeping the ions bound together.    
+Indeed, all recent results indicate that Mg is almost fully ionized to its formal charge +2, yet consensus still has not been reached on the charge density around H in this system\cite{[conflicting DFT sources]}.
 
+We used ALMO DFT to estimate the degree to which the electrons are localized near their resective ions in this crystal and the contribution of CT effects to the cohesive forces keeping the ions bound together.    
 The cell parameters for this system were optimized on a lattice of $N = 72$ atoms ($2\times 2\times 3$ unit cells), using a mesh of $2\times 2\times 2\: k$-points, sampled following the Monkhorst-Pack scheme\cite{kpts}.\\ 
 Energy calculcations were run on a system of $N = 576$ atoms ($4\times 4\times 6$ unit cells) without using $k$-points.
 The cell parameters obtained from the optimization were $a = b = 4.532\angstrom$, $c = 3.007\angstrom$.
@@ -239,28 +244,31 @@ The pseudopotential used to model magnesium's core electronic/nuclear charge onl
 
 
 ALMO-DFT on this system reveals that assuming a completely ionic character for the Mg-H bond yields only roughly 77\% of the crystal's overall lattice energy. 
-CT effects between the $\text{Mg}^{2+}$ and $\text{H}^+$ ions can therefore not be neglected in an accurate description of this crystal 
-Increasing $R_{cut}$ just enough so that each ion can only interact with its immediate neighbours lowers the calculated lattice energy by 29.69 kJ/mol/atom, thus recovering 96.25\% of the crystal's lattice energy. 
-This also accounts for 82.98\% of its full CT energy lowering term, thus suggesting that the fully relaxed electronic structure of this crystal allows for notable CT between ions and some of their more distant neighbours.  
+CT effects between the $\text{Mg}^{2+}$ and $\text{H}^-$ ions can therefore not be neglected in an accurate description of this crystal's ground state electronic structure. 
+Increasing $R_{cut}$ just enough so that each ion can only interact with its closest neighbours lowers the calculated lattice energy by 29.69 kJ/mol/atom, thus recovering 96.25\% of the crystal's lattice energy. 
+This also accounts for 82.98\% of its full CT energy lowering term, thus suggesting that the fully relaxed electronic structure of this crystal allows for notable CT between ions and some of their more distant neighbours.
+Further evidence of $\text{MgH}_{2}$ strong ionic character is  
 %Further doubling the average number of neighbours each ion can interact with only brings us to 85.77\% of $E_{CT,full}$.
 %Comparing this to a textbook ionic compound like NaCl, where we found that interaction with first neighbours covered 81.57\% of $E_{CT,full}$ and similarly doubling the number of neighbours gets us to 
 %However, increasing the number of neighbours each ion can interact with only marginally lowers the lattice energy. 
-This goes to show the degree to which the charge density is localized in this crystal; despite the importance of CT effects between an ion and its immediate neighbours, representing the electronic distribution as diffuse and spatially unrestrained only brings marginal improvements to the accuracy of our calculation. 
-This seems to corroborate the \emph{ab-initio} results obtained by Ohba \embh{et al.} which estimated the ionic charge on H to be -0.26 at 0K and found the charge density around it to be much more diffuse.
-[IONIC WITH DIFFUSE CHARGE DENSITY NEAR H]
+This goes to show the degree to which the charge density is localized in this crystal; despite the importance of CT effects between an ion and its immediate neighbours, representing the electronic distribution as completely diffuse only brings marginal improvements to the accuracy of our calculation. 
+%This seems to corroborate results like those obtained by Ohba \embh{et al.} using  which estimated the ionic charge on H to be -0.26 at $T = 0\text{K}$ and found the charge density around it to be much more diffuse.
+%[IONIC WITH DIFFUSE CHARGE DENSITY NEAR H]
 
 
 \subsection*{$\text{TiO}_{2}$}
 
-
-The properties of metal oxides have been the subject of rapidly growing interest, due to the variety of their applications in fields like catalysis or photovoltaic power generation. 
+[FEW EXPT COMPARED TO DFT STUDIES]
+[]
+The properties of metal oxides have been the subject of rapidly growing interest, due to the variety of their applications from fields like catalysis to photovoltaic power generation. 
 Titanium dioxide is a popular model used to study such compounds due to its experimental convenience (ready supply, high surface quality) and simple structure.
 As such, a wide array of \emph{ab-initio} and experimental techniques have been used to study it and all agree on its key characteristics.
-$\text{TiO}_{2}$ is characterized as an ionic crystal yet in its most stable forms, rutile and anatase, it has been shown to exhibit strong covalent character.
+$\text{TiO}_{2}$ is characterized as an ionic crystal yet in its most stable forms, rutile and anatase, it has been shown to exhibit strong covalent character\cite{}.
 Indeed, the formal on charge on Ti in $\text{TiO}_{2}$ is +4 which, given the high ionization energy of Ti into $\text{Ti}^{4+}$ and the stability of $\text{TiO}_{2}$ in crystalline form, suggests that the ionic model is unsuited for this compound.
-This known Ti-O hybridization makes $\text{TiO}_{2}$ an interesting system in which to study CT effects. \\
+Despite, the conduction band being dominated by 
+This known Ti-O bond hybridization makes $\text{TiO}_{2}$ an interesting system in which to study CT effects. \\
 
-We ran ALMO-DFT calcualtions on a lattice of $N = 576$ atoms (same as for magnesium hydride: $4\times 4\times 6$ u.c.), with an electronic density cutoff of 1000 Ry. We only considered rutile stoichiometric $\text{TiO}_{2}$ which is one of its most stable manifestations.\\
+We ran ALMO-DFT calculations on a lattice of $N = 576$ atoms (same as for magnesium hydride: $4\times 4\times 6$ u.c.), with an electronic density cutoff of 1000 Ry. We only considered rutile stoichiometric $\text{TiO}_{2}$ which is one of its most stable manifestations.\\
 The relaxed lattice parameters used for energy calculations were $a = b = 4.715\angstrom$ and $c = 3.034\angstrom$.\\
 
 
@@ -280,14 +288,16 @@ This is compeleltely congruous to the literature's current understanding of this
 
 While these results seem qualitatively similar to what was obtained for magnesium hydride, it is worth noting the total (i.e. allowing full delocalization) value of $E_{CT}$ for $\text{TiO}_{2}$ is roughly 500 kJ/mol/atom which is more than ten times what was found for $\text{MgH}_{2}$.
 CT also terms represent a much larger proportion of the energy lowering in $\text{TiO}_{2}$ than in $\text{MgH}_{2}$.
-Furthermore, as was noted previously recovering values of $\Delta E_{CT}$ close to their values obtained through traditional DFT methods requires much greater electron delocalization in $\text{MgH}_{2}$ than in $\text{TiO}_{2}$
+Finally, the nature of interfragment seems to be different in both compounds. In $\text{MgH}_{2}$, only ~80\% of CT energy recovered by first-neighbours delocalozation; in TiO2 its ~97\%.
+
+
   
 
 
 
 
 
-
+[PLOT CONV WRT ITERATIONS]
 
 %However $\text{TiO}_{2}$ also served to study the scalability of our calculation  methods with respect to system size. For such runs, a new algorithm was implemented to invert the overlap matrix which relied on matrix Taylor expansion. Outlined here is a heuristic explanation of the procedure, assuming we are trying to invert the Hermitian matrix $M\in\C^{n\times n} (n\in\N)$.
 
@@ -323,24 +333,67 @@ Furthermore, as was noted previously recovering values of $\Delta E_{CT}$ close 
 
 \subsection*{BN}
 
+Boron nitride crystallizes in polymorphs that are structurally similar and isoelectronic to carbon crystalline phases. 
+%It also exhibits high chemical and thermal stability thus making applicable in a variety of contexts.
+Consequently, cubic BN (c-BN, or borazon[cite og]) resembles diamond in structure and exhibits comparable hardness, but also presents higher thermal and chemical stability, thus revealing its wide potential applicability.
+Despite these similarities, bonding in diamond is widely charcterized as purely covalent while BN has been found to display more hybrid ionic-covalent characteristics.
+Borazon therefore presents good testing grounds for the ALMO code as, like $\text{MgH}_{2}$ and $\text{TiO}_{2}$, its bonding structure requires a nuanced description.
+
+ 
+
+
+
+[much more densely packed than other crystals we modelled]
 
 
 
 
+
+
+
+%\begin{figure}[htb]
+%\begin{minipage}{0.4\textwidth}
+%\begin{tikzpicture}
+%  \node (img)  {\includegraphics[scale=0.225]{plots/BN_conv_end.eps}};
+%  \node[below=of img, node distance=0cm, yshift=1cm,font=\color{red}] {\# iterations};
+%  \node[left=of img, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm,font=\color{red}] {$\|\nabla G\|$};
+% \end{tikzpicture}
+%\end{minipage}%
+%\begin{minipage}{0.4\textwidth}
+%\begin{tikzpicture}
+%  \node (img)  {\includegraphics[scale=0.225]{plots/TiO2_conv_end.eps}};
+%  \node[below=of img, node distance=0cm, yshift=1cm,font=\color{red}] {\# iterations};
+%  \node[left=of img, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm,font=\color{red}] {$\|\nabla G\|$};
+%\end{tikzpicture}
+%\end{minipage}%
+%\end{figure}
+
+\begin{figure}[htb]
+\begin{tikzpicture}
+  \node (img1)  {\includegraphics[scale=1.00]{plots/conv_log.eps}};
+  \node[below=of img1, node distance=0cm, yshift=1cm] {\# iterations};
+  \node[left=of img1, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm] {ln($\|\nabla E\|$)};
+\end{tikzpicture}
+\caption{Convergence vs number of iterations for BN and $\text{TiO}_{2}$.}
+\label{convgraph}
+\end{figure}
+
+This highly unexpected behaviour is due to the lack of convergence of the ALMO code in this context. Figure \ref{convgraph} shows the norm of the energy gradient as CP2K iteratively minimizes the energy (conjugate gradient method with Dai-Yuan conjugator was used in both cases) 
 
 \section{Conclusions} 
 
 In this paper we aimed to restrain electronic delocalization in our DFT calculations with the following goals:
 \begin{enumerate}
-\item{Better understand the role charge transfer plays in the bonding propertie of different types of solids}
+\item{Gain further insight on the role of CT effects in different materials}
 \item{Implement a linear scaling DFT method on systems where electrons are known to be localized}
 \end{enumerate}
 The results obatined using the ALMO scheme in our energy calcuations yielded results conistent with the current understanding of bonding in all systems we studied; weakly interacting solids with strong ionic character did not yield high values of $E_{CT}$ and conversely, CT effects played an important for systems known to be more covalent.
-However, an important that deserves highlighting is that the ALMO method is best suited for systems like titania; systems exhibiting a notable amount of interfragment CT but with a large band gap. 
+However, an important that deserves highlighting is that the ALMO method is best suited for systems like titania; systems exhibiting a notable amount of interfragment CT but a localized electron distribution. 
 Indeed, restricting valence electrons to the confines of an ion's immediate neighbourhood yielded very accurate results, and only slightly loosening such constraints gives energies that quasi-identical to those obtained through traditional KS DFT methods. 
 Enforcing locality upon the electronic states ensures sparcity of the matrices being manipulated in calculations and dramatically increases the efficiency of such calculations on large systems ($N\geq 1000$ atoms).
 [Part about BN still being problematic]
 [Timing part]
+[CT lowering roughly the same for everyone past certain pt?]
 
 
 
