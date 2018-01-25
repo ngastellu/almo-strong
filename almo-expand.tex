@@ -43,7 +43,7 @@
 \begin{document}
 
 \title{
-Using absolutely localized molecular orbitals for deeper physical insight into the nature of chemical bonding and linear-scaling calculations for condensed phase [binary] materials 
+Using absolutely localized molecular orbitals for physical insight into the nature of chemical bonding and linear-scaling calculations for condensed phase [binary] materials 
 }
 
 \author{Nicolas Gastellu}
@@ -110,22 +110,30 @@ Two calculation methods were used for the energy; one based on the variational s
 Both methods used absolutely localized molecular orbitals (ALMOs) to express the intermediate wavefunction in calculations. 
 As further elaborated elsewhere, ALMOs are expanded in a basis of spherical Gaussian orbitals centered at each atom, and defined as zero past a certain distance $R_{cut}$ from the atom's center. 
 Two fragments are considered neighbours when their localization regions (defined by $R_{cut}$) overlap.
+One of the main advantages of ALMO EDA is that allows for a natural and physically significant separation of CT terms from the rest of the energy lowering terms as follows:
+\begin{equation}
+\Delta E_{tot} = \Delta E_{frz} + \Delta E_{pol} + \Delta E_{CT}
+\end{equation}
+Where $\Delta E_{frz}$ corresponds to the energy difference between infinitely separated ions and ions who are arranged in a crystal lattice whose individual charge distributions remain unrelaxed. 
+$\Delta E_{pol}$ describes the energy lowering caused by further relaxing (i.e. polarizing) the atomic charge densities  while keeping them still contrained to a single ion.
+Finally, $\Delta E_{CT}$ represents the energy lowering caused by removing the constraint keeping valence electrons localized in atomic orbitals, thus aptly quantifying the stabilization energy of CT effects.
+
 
 By progressively increasing $R_{cut}$, we therefore increase the number of neighbours each fragment can exchange charge with. 
-This therefore leads to greater charge delocalization, greater values of $\Delta E_{CT}\left(R_{cut}\right)$, and greater values of $\Delta E_{tot}\left(R_{cut}\right)$, the obtained binding energy (the other terms being unaffected by varying $R_{cut}$). 
-As $R_{cut}$ goes to infinity (or grows to a value large enough that each fragment's neighbourhood encompasses the entire lattice), the $\Delta E_{tot}$ becomes the overall binding energy of the crystal.
+This leads to more charge delocalization and thus to greater values of $\Delta E_{CT}\left(R_{cut}\right)$ and $\Delta E_{tot}\left(R_{cut}\right)$, the other terms being unaffected by varying $R_{cut}$. 
+As $R_{cut}$ grows to a value large enough that each fragment's neighbourhood encompasses the entire lattice, we get: ${\Delta E_{tot}^{\text{ALMO}} \xrightarrow[R_{cut}\to\infty] \, \Delta E_{tot}^{\text{FULL}}}$. 
+The labels 'FULL' and 'ALMO' refer to the degree of electronic delocalization allowed by the calculation method that yielded these energy lowerings.
 
-Since the solids modelled in this work have a large band gap and a strong ionic character, 
-
-the ALMO fragments (here, atoms) were charged according to their electronegativity and the stoechiometry of the crystal (to ensure the unit cell remains neutral). 
+Since the solids modelled in this work have a large band gap and a strong ionic character, the ALMO fragments (here, atoms) were charged according to their electronegativity and the stoechiometry of the crystal (to ensure the unit cell remains neutral). 
 For example, two electrons were removed from each titanium atom and placed an oxygen atom each in $\text{TiO}_{2}$; the fragments used in the DFT calculation were therefore all intially charged for both the energy for both the cell optimization and the energy decomposition. 
-This enabled the DFT calculations to be run on closed shell systems, which is faster and avoids spin contamination of the ground state wavefunction (used in calculations) with excited states.\\
+This enabled the DFT calculations to be run on closed shell systems, which is faster and avoids spin contamination of the ground state wavefunction (used in calculations) with excited states.
+This also reflects the ionic solid model well as atoms are ionized before they crystallize and Coulomb interactions are often the main contribution to the binding in such systems.\\
 
 
 KS-DFT energy calculations were also run on single ions (still assuming periodic boundary consitions) for each crystal in order to isolate the ionization contribution to the energy of the system. 
 For a lattice compound $\text{M}_{n}\text{X}_{m}$(s) with $N$ ions, the lattice energy was computed as follows: 
 \begin{equation*}
-\Delta E_{lattice} = E_{full SCF} - (n\; E_{\text{M}^{+}} + m\; E_{\text{X}^{-}}\;\frac{N}{n+m}
+\Delta E_{lattice} = E_{full SCF} - (n E_{\text{M}^{+}} + m E_{\text{X}^{-}}\;\frac{N}{n+m})
 \end{equation*} 
 Where $E_{full SCF}$ is the energy obtained from running classic KS-DFT calculations on the crystal and $E_{\text{M}^{+}}$ and $E_{\text{X}^{-}}$ are the respective results of similar calculations on a single anion and cation from its structure. 
 In most cases, the ionization accounted for more than half of the system's energy. 
@@ -138,7 +146,6 @@ Separating such an important contribution from the rest of the energy terms was 
 
 
 %As explained in earlier works, the ALMO EDA scheme calculates the overall ground state binding energy as the sum of three terms: $\Delta E_{tot} = \Delta E_{frz} + \Delta E_{pol} + \Delta E_{CT}$. The energy lowering $\Delta E_{frz} + \Delta E_{pol}$ corresponds to the energy difference between infinitely separated ions and ions who are arranged in a crystal lattice whose individual charge distributions are relaxed (i.e. polarized) but constrained to a single ion; $\Delta E_{CT}$ thus represents the energy lowering caused by removing the constraint keeping valence electrons localized in atomic orbitals.  This constraint is enforced by choosing a cutoff radius $R_{cut}$ beyond which density matrix elements are zero. If the distance separating two ions is smaller than the sum of their repsective of $R_{cut}$, they are considered neighbours. 
-
 
 
 
@@ -225,10 +232,9 @@ By slowly increasing the localization radius of each ions' electron density, we 
 
 \subsection*{ $\text{MgH}_{2}$ }
 
-The binding properties of magnesium hydride have garnered considerable research interest as it is considered one of the most promising materials for cheap hydrogen storage\cite{}.  
-In its solid form, $\text{Mg}_{2}$ is modelled as an ionic compound, yet the covalent character of the Mg-H bond in the crystal has been known for over four decades\cite{oldmgh2} and continues to be confirmed by recent experimental data\cite{mgh2exp}. 
-However, disagreement in the literature remains on the degree of ionicity exhibited by this system. 
-Indeed, all recent results indicate that Mg is almost fully ionized to its formal charge +2, yet consensus still has not been reached on the charge density around H in this system\cite{[conflicting DFT sources]}.
+The binding properties of magnesium hydride have garnered considerable research interest as it is considered one of the most promising materials for cheap hydrogen storage\cite{Hstorage}.  
+As such, the charge density inside the crystal's different polytypes has been studied for over four decades\cite{oldmgh2} and some disagreement remains on the degree of ionicity exhbited by the system under its different forms.  
+Indeed, nearly all recent results agree that Mg is almost fully ionized to its formal charge +2, yet consensus still has not been reached on the charge density around H in this system\cite{[conflicting DFT/exp sources]}.
 
 We used ALMO DFT to estimate the degree to which the electrons are localized near their resective ions in this crystal and the contribution of CT effects to the cohesive forces keeping the ions bound together.    
 The cell parameters for this system were optimized on a lattice of $N = 72$ atoms ($2\times 2\times 3$ unit cells), using a mesh of $2\times 2\times 2\: k$-points, sampled following the Monkhorst-Pack scheme\cite{kpts}.\\ 
@@ -240,13 +246,14 @@ The pseudopotential used to model magnesium's core electronic/nuclear charge onl
 \begin{figure}
 \includegraphics[scale=1]{plots/MgH2_EvR}
 \caption{$\text{MgH}_{2}$}
+\label{mgh2}
 \end{figure}
 
-
-ALMO-DFT on this system reveals that assuming a completely ionic character for the Mg-H bond yields only roughly 77\% of the crystal's overall lattice energy. 
-CT effects between the $\text{Mg}^{2+}$ and $\text{H}^-$ ions can therefore not be neglected in an accurate description of this crystal's ground state electronic structure. 
-Increasing $R_{cut}$ just enough so that each ion can only interact with its closest neighbours lowers the calculated lattice energy by 29.69 kJ/mol/atom, thus recovering 96.25\% of the crystal's lattice energy. 
-This also accounts for 82.98\% of its full CT energy lowering term, thus suggesting that the fully relaxed electronic structure of this crystal allows for notable CT between ions and some of their more distant neighbours.
+ALMO-DFT on this system reveals that assuming a completely ionic character for the Mg-H bond yields a surprisingly high 96.40\% of the crystal's overall lattice energy.  
+Increasing $R_{cut}$ just enough so that each ion can only interact with its closest neighbours lowers the calculated lattice energy by 29.69 kJ/mol/atom, which accounts for 82.98\% of the system's full CT energy.
+As with the alkali halides, we find that CT effects represent a small fraction of the overall binding energy in the solid and only considering nearest neighbour CT effects furthermore recovers the quasi-totality of $E_lattice$ (roughly 99.39\%).
+However when considering the fraction of $E_{\text{CT}}$ obtained when only accounting for nearest-neighbour interactions, we
+This suggests that the fully relaxed electronic structure of this crystal allows for notable CT between ions and some of their more distant neighbours.
 Further evidence of $\text{MgH}_{2}$ strong ionic character is  
 %Further doubling the average number of neighbours each ion can interact with only brings us to 85.77\% of $E_{CT,full}$.
 %Comparing this to a textbook ionic compound like NaCl, where we found that interaction with first neighbours covered 81.57\% of $E_{CT,full}$ and similarly doubling the number of neighbours gets us to 
@@ -258,8 +265,7 @@ This goes to show the degree to which the charge density is localized in this cr
 
 \subsection*{$\text{TiO}_{2}$}
 
-[FEW EXPT COMPARED TO DFT STUDIES]
-[]
+
 The properties of metal oxides have been the subject of rapidly growing interest, due to the variety of their applications from fields like catalysis to photovoltaic power generation. 
 Titanium dioxide is a popular model used to study such compounds due to its experimental convenience (ready supply, high surface quality) and simple structure.
 As such, a wide array of \emph{ab-initio} and experimental techniques have been used to study it and all agree on its key characteristics.
@@ -289,7 +295,6 @@ This is compeleltely congruous to the literature's current understanding of this
 While these results seem qualitatively similar to what was obtained for magnesium hydride, it is worth noting the total (i.e. allowing full delocalization) value of $E_{CT}$ for $\text{TiO}_{2}$ is roughly 500 kJ/mol/atom which is more than ten times what was found for $\text{MgH}_{2}$.
 CT also terms represent a much larger proportion of the energy lowering in $\text{TiO}_{2}$ than in $\text{MgH}_{2}$.
 Finally, the nature of interfragment seems to be different in both compounds. In $\text{MgH}_{2}$, only ~80\% of CT energy recovered by first-neighbours delocalozation; in TiO2 its ~97\%.
-
 
   
 
@@ -339,13 +344,26 @@ Consequently, cubic BN (c-BN, or borazon[cite og]) resembles diamond in structur
 Despite these similarities, bonding in diamond is widely charcterized as purely covalent while BN has been found to display more hybrid ionic-covalent characteristics.
 Borazon therefore presents good testing grounds for the ALMO code as, like $\text{MgH}_{2}$ and $\text{TiO}_{2}$, its bonding structure requires a nuanced description.
 
- 
+Implementing ALMO DFT on BN proved to be much less successful than on the previously described systems; table \ref{bngraph} shows that increasing the localization radius of valence electrons, thus allowing the ALMO-obtained charge density to further relax to its natural state, \emph{increases} the energy of the crystal.
+This highly unexpected behaviour is due to the lack of convergence of the calculations in this context. 
+Figure \ref{convgraph} shows the norm of the energy gradient as CP2K iteratively minimizes the energy (conjugate gradient method with Dai-Yuan conjugator was used in both cases). 
+Converging calculations tend to have a monotonically decreasing $\|\nabla E\|$ until it falls below a certain threshold value and ends the minimzation. 
+On the other hand, we can see that in the energy minimization of c-BN, $\|\nabla E\|$ fluctuates greatly and does not fall below a certain value.
+Close examination of the graph in fact shows that the calculations BN initially converge very fast, before $\|\nabla E\|$ suddenly blows up.
+The first part ALMO DFT calculations corresponds to the optimizing the system's electronic structure without allowing interfragment CT, and in doing so, the calculation of the frozen density and polarization energy lowering. 
+The second step consists in further relaxing this localized electronic structure by allowing electrons to remain within the region delimited by $R_{cut}$.
+It is often this latter part of the computation that fails to converge.
+Unconverged calculations usually result in overestimating the final energy (thus \emph{underestimating} the energy \emph{lowering}), as we are evaluating it variationally.
 
 
-
+[block diagonal ALMOs converge fast, XALMOs fail (you can notice it on graph)]
 [much more densely packed than other crystals we modelled]
 
-
+\begin{figure}
+\includegraphics[scale=1]{plots/BN_EvR}
+\caption{BN}
+\label{bngraph}
+\end{figure}
 
 
 
@@ -378,7 +396,9 @@ Borazon therefore presents good testing grounds for the ALMO code as, like $\tex
 \label{convgraph}
 \end{figure}
 
-This highly unexpected behaviour is due to the lack of convergence of the ALMO code in this context. Figure \ref{convgraph} shows the norm of the energy gradient as CP2K iteratively minimizes the energy (conjugate gradient method with Dai-Yuan conjugator was used in both cases) 
+
+\section*{PbSe}
+CdSe or other small gap semiconductor   
 
 \section{Conclusions} 
 
@@ -391,9 +411,11 @@ The results obatined using the ALMO scheme in our energy calcuations yielded res
 However, an important that deserves highlighting is that the ALMO method is best suited for systems like titania; systems exhibiting a notable amount of interfragment CT but a localized electron distribution. 
 Indeed, restricting valence electrons to the confines of an ion's immediate neighbourhood yielded very accurate results, and only slightly loosening such constraints gives energies that quasi-identical to those obtained through traditional KS DFT methods. 
 Enforcing locality upon the electronic states ensures sparcity of the matrices being manipulated in calculations and dramatically increases the efficiency of such calculations on large systems ($N\geq 1000$ atoms).
+Our study of boron nitride revealed 
 [Part about BN still being problematic]
 [Timing part]
 [CT lowering roughly the same for everyone past certain pt?]
+[ALMO = promising but doesnt work for certain types of systems; set things up for next paper]
 
 
 
@@ -403,6 +425,6 @@ Enforcing locality upon the electronic states ensures sparcity of the matrices b
 %Calculated radial distribution functions of liquid water, comparison of timing benchmarks for the DZVP and TZV2P basis sets, timing benchmarks for systems containing 32,768 water molecules, timing benchmarks for the Kohn-Sham matrix build. This material is available free of charge via the Internet at http://pubs.acs.org.
 
 %\bibliography{almo-expand}
-%\bibliography{methods}
+\bibliography{methods}
 
 \end{document}
