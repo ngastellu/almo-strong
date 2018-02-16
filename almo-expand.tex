@@ -43,7 +43,10 @@
 \begin{document}
 
 \title{
-Using absolutely localized molecular orbitals for physical insight into the nature of chemical bonding and linear-scaling calculations for condensed phase [binary] materials 
+%Using absolutely localized molecular orbitals for deeper physical insight into the nature of chemical bonding and linear-scaling calculations for condensed phase [binary] materials 
+%Localized electrons (orbitals) in materials modeling
+Electron localization in insulators, semiconductors, and metals
+%Absolutely localized orbitals for density functional theory modeling of [binary] materials
 }
 
 \author{Nicolas Gastellu}
@@ -55,36 +58,49 @@ Using absolutely localized molecular orbitals for physical insight into the natu
 \date{\today}
 
 \begin{abstract}
-Absolutely localized nonorthogonal molecular orbitals are promising for developing low-cost linear scaling reformulation of Kohn-Sham density functional theory.
+Energy decomposition analysis based on absolutely localized molecular orbitals (ALMO EDA) is extended to investigate the spatial extent of electron localization in materials.  and the contribution of electron delocalization to the energetic stabilization of their lattices. It is shown that ZZZ.
+%Absolutely localized nonorthogonal molecular orbitals are promising for developing low-cost linear scaling reformulation of Kohn-Sham density functional theory.
 %In a recent development, we resolved one of the key issues of has been resolved that lead to the development of a series of efficient DFT methods for weakly-interacting molecular systems. Here, we tested the new method on more challenging strongly interacting systems to understand limits of its applicability. 
 \end{abstract}
 
 \maketitle
  
-\section{Outline of research}
-
-Accuracy-speed tests for the following candidate systems with varying importance of charge-delocalization effects. 
-Unless stated otherwise the systems are static (no molecular dynamics).
-
-\begin{itemize}
-\item Alkali halides
-\item Magnesium hydride
-\item Cadmium selenide
-\item Titanium dioxide
-\item Metal: Magnesium
-\item Silicon
-\item Boron nitride or analogous system
-\item Graphene
-\item Solvated protons (sampling)
-\item Peptide bonds
-\item Ionic liquids
-\end{itemize}
+%\section{Outline of research}
+%
+%Accuracy-speed tests for the following candidate systems with varying importance of charge-delocalization effects. 
+%%Unless stated otherwise the systems are static (no molecular dynamics).
+%
+%\begin{itemize}
+%\item Alkali halides
+%\item Magnesium hydride
+%\item Cadmium selenide
+%\item Titanium dioxide
+%\item Metal: Magnesium
+%%\item Silicon
+%\item Boron nitride or analogous system
+%%\item Graphene
+%%\item Solvated protons (sampling)
+%%\item Peptide bonds
+%%\item Ionic liquids
+%\end{itemize}
 
 \section{Introduction} 
 
-[Nothing here yet]
+It is well-known that Kohn-Sham density functional theory (DFT) can be reformulated exactly in terms of local variables, the most common of which are one-electron density matrix and localized orbitals. The locality of these variables has often been exploited to understand the nature of physical interactions between atoms.
 
+% and/or for computational gain. 
 
+%Physical insight: DM, oribtals. The magnitude of the DM elements depends on the distance between the centers. Localized orbitals - Wannier oribtals, Boys oribtals, a vast variety of energy decomposition schemes.
+
+Furthermore, while classical chemistry treats charge density in structures like covalent bonds or lone pairs as localized, quantum mechanics models it using solutions of the Schr\"{o}dinger equation, which span all of real space. Despite this fundamentally non-local description, it has been shown that making use of locality in DFT remains somewhat justifiable. For example, the use of localized Wannier function has proved particularly insightful to describe bonding in crystalline systems. Furthermore, the single-electron density matrix central to all DFT schemes is known to have exponentially localized elements at nonzero temperature for most metals and insulators.
+
+The computational complexity engendered by describing electrons as spatially diffuse energy eigenstates, compounded with the factors mentioned above, make exploting this locality principle an interesting option to accelerate DFT calculations, as long as they are physically warranted.
+
+The current work's objective is therefore twofold: understanding which types of system can be described using the locality principle, and measuring how much computational effort is saved when using such an assumption to model such systems. We carried energy decomposition analyses (EDA) on a variety systems which exhibited different levels of electronic delocalization. Using the absolutely localized molecular orbitals scheme (ALMO) with different values for the allowed electronic delocalization radius and comparing our results with traditional GGA-DFT results, we managed to quantify the role electronic delocalization plays in the stabilization of such systems, and the degree to which the charge density is localized in such systems.
+
+To measure the computational efficiency that could be gained by exploiting the concept of locality in our model, we used a weakly system for which the ALMO approach yielded accurate for small values of $R_{\text{cut}}$. We used rutile $\text{TiO}_{2}$, an ionic crystal exhibting a small but significant degree of charge delocalization and ran calculations on cells containing an increasing number of atoms to establish timing benchmarks and assess how the ALMO scheme scaled with respect to the number of atoms being modelled, for weakly interacing systems.  
+
+%In a recent work, we exploited nonorthogonal localized molecular orbitals to develop a series of LS methods for molecular systems with a low computational overhead. High efficiency of the proposed methods is achieved with a new robust two-stage variational procedure or by replacing the optimization altogether with an accurate non-self-consistent approach. We demonstrate that even for challenging condensed phase systems, the implemented LS methods are capable of extending the range of accurate DFT simulations to molecular systems that are an order of magnitude larger than those treated before.
 
 \section*{Results and discussion}
  
@@ -197,17 +213,17 @@ These results show that binding in alkali-halide salts is dominated by Coulomb i
 These systems systems are known insulators with a large band gap and thus negligible CT, which is why they served as references to compare our results from other, less straightforward, systems to.
 By slowly increasing the localization radius of each ions' electron density, we were able to reveal how localized it actually was.
 
-\begin{figure}
-\includegraphics[scale=1]{./plots/LiF_EvR}
-\caption{LiF}
-\label{lif}
-\end{figure}
-
-\begin{figure}
-\includegraphics[scale=1]{./plots/LiI_EvR}
-\caption{LiI}
-\label{lii}
-\end{figure}
+%\begin{figure}
+%\includegraphics[scale=1]{./plots/LiF_EvR}
+%\caption{LiF}
+%\label{lif}
+%\end{figure}
+%
+%\begin{figure}
+%\includegraphics[scale=1]{./plots/LiI_EvR}
+%\caption{LiI}
+%\label{lii}
+%\end{figure}
 
 \begin{figure}
 \includegraphics[scale=1]{./plots/NaCl_EvR}
@@ -216,21 +232,27 @@ By slowly increasing the localization radius of each ions' electron density, we 
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=1]{./plots/RbF_EvR}
-\label{rbf}
-\caption{RbF}
+\includegraphics[scale=1]{./plots/NaCl_EvRneutral}
+\label{nacln}
+\caption{NaCl neutral}
 \end{figure}
 
-\begin{figure}
-\includegraphics[scale=1]{./plots/RbI_EvR}
-\caption{RbI}
-\label{rbi}
-\end{figure}
+%\begin{figure}
+%\includegraphics[scale=1]{./plots/RbF_EvR}
+%\label{rbf}
+%\caption{RbF}
+%\end{figure}
+%
+%\begin{figure}
+%\includegraphics[scale=1]{./plots/RbI_EvR}
+%\caption{RbI}
+%\label{rbi}
+%\end{figure}
 
 
 
 
-\subsection*{ $\text{MgH}_{2}$ }
+\subsection*{Magnesium hydride}
 
 The binding properties of magnesium hydride have garnered considerable research interest as it is considered one of the most promising materials for cheap hydrogen storage\cite{Hstorage}.  
 As such, the charge density inside the crystal's different polytypes has been studied for over four decades\cite{oldmgh2} and some disagreement remains on the degree of ionicity exhbited by the system under its different forms.  
@@ -249,6 +271,12 @@ The pseudopotential used to model magnesium's core electronic/nuclear charge onl
 \label{mgh2}
 \end{figure}
 
+\begin{figure}
+\includegraphics[scale=1]{plots/MgH2_EvRneutral}
+\caption{$\text{MgH}_{2}$}
+\label{mgh2n}
+\end{figure}
+
 ALMO-DFT on this system reveals that assuming a completely ionic character for the Mg-H bond yields a surprisingly high 96.40\% of the crystal's overall lattice energy.  
 Increasing $R_{cut}$ just enough so that each ion can only interact with its closest neighbours lowers the calculated lattice energy by 29.69 kJ/mol/atom, which accounts for 82.98\% of the system's full CT energy.
 As with the alkali halides, we find that CT effects represent a small fraction of the overall binding energy in the solid and only considering nearest neighbour CT effects furthermore recovers the quasi-totality of $E_lattice$ (roughly 99.39\%).
@@ -263,7 +291,7 @@ This goes to show the degree to which the charge density is localized in this cr
 %[IONIC WITH DIFFUSE CHARGE DENSITY NEAR H]
 
 
-\subsection*{$\text{TiO}_{2}$}
+\subsection*{Titatnium dioxide (ZZZ-specify crystal form for all materials)}
 
 
 The properties of metal oxides have been the subject of rapidly growing interest, due to the variety of their applications from fields like catalysis to photovoltaic power generation. 
@@ -282,6 +310,12 @@ The relaxed lattice parameters used for energy calculations were $a = b = 4.715\
 \includegraphics[scale=1]{plots/TiO2_EvR}
 \caption{$\text{TiO}_{2}$}
 \label{tio2graph}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=1]{plots/TiO2_EvRneutral}
+\caption{$\text{TiO}_{2}$}
+\label{tio2n}
 \end{figure}
 
 Figure \ref{tio2graph} shows us that CT effects account for 57.03\% of the crystal's lattice energy, while only allowing local CT between ions and their immediate neighbours recovers 98.76\%.
@@ -336,7 +370,7 @@ Finally, the nature of interfragment seems to be different in both compounds. In
 
 
 
-\subsection*{BN}
+\subsection*{Boron nitride}
 
 Boron nitride crystallizes in polymorphs that are structurally similar and isoelectronic to carbon crystalline phases. 
 %It also exhibits high chemical and thermal stability thus making applicable in a variety of contexts.
@@ -365,6 +399,11 @@ Unconverged calculations usually result in overestimating the final energy (thus
 \label{bngraph}
 \end{figure}
 
+%\begin{figure}
+%\includegraphics[scale=1]{plots/BN_EvRneutral}
+%\caption{BN}
+%\label{bnn}
+%\end{figure}
 
 
 
@@ -397,7 +436,7 @@ Unconverged calculations usually result in overestimating the final energy (thus
 \end{figure}
 
 
-\section*{PbSe}
+\subsection*{Cadmium selenide}
 CdSe or other small gap semiconductor   
 
 \section{Conclusions} 
